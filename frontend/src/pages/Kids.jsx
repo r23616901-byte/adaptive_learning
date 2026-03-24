@@ -9,6 +9,7 @@ const Kids = () => {
   const [input, setInput] = useState('');
   const [output, setOutput] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [subjectKeyword, setSubjectKeyword] = useState('');
 
   const handleTransform = async () => {
     if (!input) return;
@@ -16,11 +17,24 @@ const Kids = () => {
     try {
       const res = await transformContent(input, 'Kids Mode');
       setOutput(res.output);
+      setSubjectKeyword(res.subjectKeyword || '');
     } catch (err) {
       console.error(err);
     } finally {
       setLoading(false);
     }
+  };
+
+  const getCartoonImage = (keyword) => {
+    if (!keyword) return null;
+    // Using LoremFlickr for better keyword reliability in placeholders
+    return `https://loremflickr.com/600/400/cartoon,${keyword}/all`;
+  };
+
+  const getVideoEmbed = (keyword) => {
+    if (!keyword) return null;
+    // Special kids educational search
+    return `https://www.youtube.com/embed?listType=search&list=${keyword}+for+kids+educational`;
   };
 
   const handleSpeech = (text) => {
@@ -50,7 +64,38 @@ const Kids = () => {
         </Card>
 
         <Card title="Your Cartoon Summary" subtitle="Here is your simple and fun summary!" icon={<Star size={20} className="text-yellow-400" />}>
-          <OutputBox output={output} loading={loading} mode="Kids Mode" onSpeech={handleSpeech} />
+          <div className="kids-output-container">
+            <OutputBox output={output} loading={loading} mode="Kids Mode" onSpeech={handleSpeech} />
+            
+            {!loading && output.length > 0 && (
+              <div className="media-section mt-8">
+                {subjectKeyword && (
+                  <>
+                    <div className="image-wrapper mb-6">
+                      <h5 className="media-title">🎨 Cool Picture!</h5>
+                      <img 
+                        src={getCartoonImage(subjectKeyword)} 
+                        alt={subjectKeyword} 
+                        className="kids-dynamic-img" 
+                      />
+                    </div>
+                    
+                    <div className="video-section">
+                      <h5 className="media-title">🎬 Watch & Learn!</h5>
+                      <div className="video-container" style={{ position: 'relative', paddingBottom: '56.25%', height: 0, borderRadius: '12px', overflow: 'hidden' }}>
+                        <iframe 
+                          src={getVideoEmbed(subjectKeyword)} 
+                          style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 0 }} 
+                          allowFullScreen 
+                          title="Kids Learning Video"
+                        ></iframe>
+                      </div>
+                    </div>
+                  </>
+                )}
+              </div>
+            )}
+          </div>
         </Card>
       </div>
 
