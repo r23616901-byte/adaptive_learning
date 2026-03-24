@@ -195,15 +195,20 @@ body {
 }
 
 /* Card Styling */
-.card-wrapper {
-  background: var(--bg-card);
-  border-radius: var(--radius-lg);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+.kids-layout .card-wrapper {
+  background: rgba(232, 155, 155, 0.95);
+  /* solid white */
 }
+
+.kids-layout .card-wrapper::before {
+  display: none;
+}
+
+.kids-layout .card-title,
+.kids-layout .card-subtitle {
+  color: #333;
+}
+
 
 .card-header {
   display: flex;
@@ -458,7 +463,12 @@ body {
   opacity: 0.9;
 }
 
-.cloud { top: 8%; left: 5%; width: 140px; animation: floatElem 6s ease-in-out infinite; }
+.cloud {
+  top: 8%;
+  left: 5%;
+  width: 140px;
+  animation: floatElem 6s ease-in-out infinite;
+}
 
 .reading-kids-img {
   width: 220px;
@@ -468,14 +478,29 @@ body {
 }
 
 @keyframes floatElem {
-  0% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-20px) rotate(5deg); }
-  100% { transform: translateY(0px) rotate(0deg); }
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-20px) rotate(5deg);
+  }
+
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
 }
 
 @keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-15px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-15px);
+  }
 }
 
 /* Floating Clouds */

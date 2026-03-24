@@ -97,7 +97,33 @@ IMPORTANT:
     res.status(200).json({ output: outputLines });
   } catch (error) {
     console.error('Error with OpenAI API:', error);
-    res.status(500).json({ error: 'AI processing failed', details: error.message });
+    
+    // Fallback to Mock AI Engine if API fails
+    console.warn('Falling back to Mock AI Engine due to API error.');
+    
+    const sentences = text.match(/[^.!?]+[.!?]+/g) || [text];
+    let output = [];
+
+    switch (mode) {
+      case 'Kids Mode':
+        output = sentences.slice(0, 5).map(s => `🌟 ${s.trim()} - This is super exciting! ✨`);
+        break;
+      case 'Visual Mode':
+        output = sentences.map((s, i) => `CONCEPT ${i + 1}: ${s.trim().toUpperCase()}`);
+        break;
+      case 'Student Mode':
+        output = sentences.map(s => `📖 KEY POINT: ${s.trim()}`);
+        break;
+      case 'Exam Prep Mode':
+        output = sentences.slice(0, 4).map(s => `❓ PRACTICE: Explain the significance of "${s.trim().split(' ').slice(0, 3).join(' ')}..."`);
+        break;
+      case 'ADHD Mode':
+        output = sentences.map(s => `🎯 FOCUS: ${s.trim()}`);
+        break;
+      default:
+        output = sentences.map(s => s.trim());
+    }
+    return res.status(200).json({ output, isMock: true });
   }
 };
 
