@@ -66,47 +66,61 @@ const Kids = () => {
         <Card title="Your Cartoon Summary" subtitle="Here is your simple and fun summary!" icon={<Star size={20} className="text-yellow-400" />}>
           <div className="kids-output-container">
             <OutputBox output={output} loading={loading} mode="Kids Mode" onSpeech={handleSpeech} />
-            
-            {!loading && output.length > 0 && (
+
+            {output.length > 0 && (
+              <div className="kids-media">
+                <h3>🎨 Cool Picture!</h3>
+                <img
+                  src={`https://source.unsplash.com/400x300/?${input},kids,cartoon,illustration`}
+                  alt="learning visual"
+                />
+              </div>
+            )}
+            {output.length > 0 && (
+              <p className="kids-reaction">
+                🎉 Wow! Learning about {input} is so fun! 😍
+              </p>
+            )}
+            {output.length > 0 && (
+              <div className="kids-video">
+                <h3>🎥 Fun Learning Video!</h3>
+                <iframe
+                  width="300"
+                  height="200"
+                  src={`https://www.youtube.com/embed?listType=search&list=${encodeURIComponent(input + " for kids")}`}
+                  title="Kids Learning"
+                ></iframe>
+              </div>
+            )}
+            {!loading && output.length > 0 && subjectKeyword && (
               <div className="media-section mt-8">
-                {subjectKeyword && (
-                  <>
-                    <div className="image-wrapper mb-6">
-                      <h5 className="media-title">🎨 Cool Picture!</h5>
-                      <img 
-                        src={getCartoonImage(subjectKeyword)} 
-                        alt={subjectKeyword} 
-                        className="kids-dynamic-img" 
-                      />
-                    </div>
-                    
-                    <div className="video-section">
-                      <h5 className="media-title">🎬 Watch & Learn!</h5>
-                      <div className="video-container" style={{ position: 'relative', paddingBottom: '56.25%', height: 0, borderRadius: '12px', overflow: 'hidden' }}>
-                        <iframe 
-                          src={getVideoEmbed(subjectKeyword)} 
-                          style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 0 }} 
-                          allowFullScreen 
-                          title="Kids Learning Video"
-                        ></iframe>
-                      </div>
-                    </div>
-                  </>
-                )}
+                <div className="kids-media mb-6">
+                  <h5 className="media-title">🎨 Cool Picture!</h5>
+                  <img
+                    src={getCartoonImage(subjectKeyword)}
+                    alt={subjectKeyword}
+                    className="kids-dynamic-img"
+                  />
+                </div>
+
+                <div className="kids-video">
+                  <h5 className="media-title">🎬 Watch & Learn!</h5>
+                  <div className="video-container" style={{ position: 'relative', paddingBottom: '56.25%', height: 0, borderRadius: '12px', overflow: 'hidden' }}>
+                    <iframe
+                      src={getVideoEmbed(subjectKeyword)}
+                      style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 0 }}
+                      allowFullScreen
+                      title="Kids Learning Video"
+                    ></iframe>
+                  </div>
+                </div>
               </div>
             )}
           </div>
         </Card>
-      </div>
+      </div >
 
-      <div className="mt-8 relative z-10 mb-12">
-        <Card title="Fun Learning Video" subtitle="Watch and learn amazing things!" icon={<Star size={20} className="text-yellow-400" />}>
-          <div className="video-container" style={{ position: 'relative', paddingBottom: '56.25%', height: 0, borderRadius: '12px', overflow: 'hidden' }}>
-            <iframe src="https://www.youtube.com/embed/1vclBtzGkC0" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 0 }} allowFullScreen title="Kids Learning Video"></iframe>
-          </div>
-        </Card>
-      </div>
-    </div>
+    </div >
   );
 };
 

@@ -38,26 +38,36 @@ const transformText = async (req, res) => {
   }
 
   // REAL AI LOGIC
-  const systemMessage = `You are an adaptive learning assistant.
-  
-  Convert the given text into a neurodivergent-friendly format based on the selected mode: ${mode}
-  
-  If Kids Mode (Kids 5-10 - Cartoon Learning):
-  - Write a very simple, playful, and animated-style story.
-  - Explain the concepts as if they were part of a fun adventure.
-  - Use plenty of emojis.
-  - Break the story into short, engaging chunks.
-  - **CRITICAL**: Also identify a single "subjectKeyword" that represents the main topic of the text.
-  - **IMPORTANT**: The keyword MUST be a descriptive noun (e.g., "moon", "robot", "castle"). **DO NOT** use common words like "the", "a", "is", "my", "how".
-  - Return the response in this EXACT JSON format:
-    {
-      "output": ["Chunk 1 of the story...", "Chunk 2...", ...],
-      "subjectKeyword": "meaningful-keyword"
-    }
+  let systemMessage;
+  if (mode === 'Kids Mode') {
+    systemMessage = `
+    Explain the user's text for a 6-year-old kid.
 
-  For all other modes return ONLY bullet points starting with "-".
-  Each bullet point must be clear and concise.
-  Do not add any conversational text.`;
+    Make it:
+    - very fun
+    - story style
+    - include emojis
+    - add imagination
+    - 3–5 lines only
+
+    Example:
+    Sun ☀️ is like a big glowing ball!
+    It gives light and helps plants grow 🌱
+    We feel warm because of the sun 😊
+
+    **CRITICAL**: Also identify a single "subjectKeyword" that represents the main topic (e.g., "sun", "robot", "apple").
+    Return the response in this EXACT JSON format:
+    {
+      "output": ["Line 1...", "Line 2...", "Line 3..."],
+      "subjectKeyword": "the-keyword"
+    }`;
+  } else {
+    systemMessage = `You are an adaptive learning assistant.
+    Convert the given text into a neurodivergent-friendly format based on the selected mode: ${mode}
+    Return ONLY bullet points starting with "-".
+    Each bullet point must be clear and concise.
+    Do not add any conversational text.`;
+  }
 
   try {
     const response = await openai.chat.completions.create({

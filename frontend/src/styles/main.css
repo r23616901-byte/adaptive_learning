@@ -197,8 +197,10 @@ body {
 /* Card Styling */
 .kids-layout .card-wrapper {
   background: #ffffff;
-  border: 4px solid #f9a8d4; /* soft pink border */
-  box-shadow: 0 12px 0px rgba(244, 114, 182, 0.2); /* kid-friendly "flat" shadow */
+  border: 4px solid #f9a8d4;
+  /* soft pink border */
+  box-shadow: 0 12px 0px rgba(244, 114, 182, 0.2);
+  /* kid-friendly "flat" shadow */
   border-radius: 30px;
 }
 
@@ -398,11 +400,12 @@ body {
 
 .kids-mode .output-item-card {
   border-left: 6px solid #f472b6;
-  background: #fff5f7;
+  background: #fff0f5;
   color: #c026d3;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   font-weight: 600;
   border-radius: 15px;
+  padding: 12px;
   box-shadow: 4px 4px 0px rgba(244, 114, 182, 0.1);
 }
 
@@ -523,7 +526,8 @@ body {
   width: 200%;
   height: 200%;
   background: url('/images/clouds.svg') repeat;
-  opacity: 0.3; /* reduced opacity for better readability */
+  opacity: 0.3;
+  /* reduced opacity for better readability */
   animation: moveClouds 60s linear infinite;
   z-index: -1;
 }
@@ -603,4 +607,49 @@ body {
   100% {
     transform: translateY(0);
   }
+}
+
+.kids-media img {
+  margin-top: 20px;
+  border-radius: 15px;
+  width: 250px;
+}
+
+.kids-video {
+  margin-top: 20px;
+}
+
+.kids-media {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.kids-media img {
+  border-radius: 15px;
+  width: 250px;
+  margin-top: 10px;
+}
+
+.kids-video {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.kids-video iframe {
+  border-radius: 15px;
+}
+
+.kids-reaction {
+  margin-top: 10px;
+  font-size: 18px;
+  color: #ff6f61;
+  font-weight: bold;
+}
+
+.kids-media img {
+  transition: transform 0.3s;
+}
+
+.kids-media img:hover {
+  transform: scale(1.1);
 }
